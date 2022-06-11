@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>size-adjuster</title>
+    <style>
+        .line{margin: 1rem 0; border-bottom: 1px solid;}
+        input{width: 5rem;}
+    </style>
+</head>
+
+<body>
+    <h1>size-adjuster</h1>
+
+    <input id="width-1" type="number" value="1200">
+    x
+    <input id="height-1" type="number" value="900">
+    =>
+    <input id="width-2" type="number" value="2400">
+    x
+    <input id="height-2" type="number" value="2400">
+
+    <div class="line"></div>
+
+    <strong>Cover:</strong>
+    <span id="result-1"></span>
+    <br />
+
+    <strong>Contain:</strong>
+    <span id="result-2"></span>
+    <br />
+
+    <strong>Fit:</strong>
+    <span id="result-3"></span>
+
+    <script src="dist/size-adjuster.js"></script>
+    <script>
+        function evt(e) {
+            var sw = parseInt(document.getElementById("width-1").value);
+            var sh = parseInt(document.getElementById("height-1").value);
+            var dw = parseInt(document.getElementById("width-2").value);
+            var dh = parseInt(document.getElementById("height-2").value);
+            var covered = sizeAdjuster.cover(sw, sh, dw, dh);
+            var contained = sizeAdjuster.contain(sw, sh, dw, dh);
+            var fitted = sizeAdjuster.fit(sw, sh, dw, dh);
+            document.getElementById("result-1").innerHTML = Math.round(covered.width) + " x " + Math.round(covered.height) + " px";
+            document.getElementById("result-2").innerHTML = Math.round(contained.width) + " x " + Math.round(contained.height) + " px";
+            document.getElementById("result-3").innerHTML = Math.round(fitted.width) + " x " + Math.round(fitted.height) + " px";
+        }
+        document.getElementById("width-1").addEventListener("input", evt);
+        document.getElementById("height-1").addEventListener("input", evt);
+        document.getElementById("width-2").addEventListener("input", evt);
+        document.getElementById("height-2").addEventListener("input", evt);
+
+        evt();
+    </script>
+</body>
+
+</html>
